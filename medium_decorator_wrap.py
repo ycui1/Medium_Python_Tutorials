@@ -67,7 +67,3 @@ def check_decorator_wraps(decorated_func):
 
 
 check_decorator_wraps(say_hello)
-
-
-
-
