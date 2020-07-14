@@ -127,6 +127,3 @@ def generate_plot(data, image_name=None):
 
 # Now, we can omit the second parameter
 generate_plot(data)
-
-pi = 3.14
-print(f"{pi=}")
