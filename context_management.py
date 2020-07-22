@@ -44,8 +44,10 @@ lock = Lock()
 lock.acquire()
 try:
     # do your operations here
+    pass
 except Exception:
     # handle exceptions
+    pass
 finally:
     lock.release()
 
