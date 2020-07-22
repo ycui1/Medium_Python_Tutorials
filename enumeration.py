@@ -27,6 +27,7 @@ class Direction(Enum):
     def angle_interval(direction0, direction1):
         return abs(direction0.angle() - direction1.angle())
 
+dir(Direction)
 
 east = Direction.EAST
 print("South Angle:", east.angle())
