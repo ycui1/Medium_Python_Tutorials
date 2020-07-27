@@ -15,3 +15,13 @@ print('*** Use the count() function with strings')
 word = 'HelloHello'
 for letter in set(word):
     print(f'{letter} count: {word.count(letter)}')
+
+from collections import Counter
+
+letters = list('abcabcdaabb')
+letter_counter = Counter(letters)
+print("Letter Counter:", letter_counter)
+
+
+nested_lists = [[1, 2, 3], [0, 1, 2], [2, 3, 4]]
+unhashable_counter = Counter(nested_lists)
