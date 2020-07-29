@@ -127,3 +127,65 @@ def generate_plot(data, image_name=None):
 
 # Now, we can omit the second parameter
 generate_plot(data)
+
+words = ['an', 'boy', 'girl', 'an', 'boy', 'dog', 'cat', 'Dog', 'CAT', 'an',
+         'GIRL', 'AN', 'dog', 'cat', 'cat', 'bag', 'BAG', 'BOY', 'boy', 'an']
+unique_words = {x.lower() for x in set(words)}
+for word in unique_words:
+    print(f"* Count of {word}: {words.count(word)}")
+
+from collections import Counter
+
+word_counter = Counter(x.lower() for x in words)
+print("Word Counts:", word_counter)
+
+# Find out the most common item
+print("Most Frequent:", word_counter.most_common(1))
+# Find out the most common 2 items
+print("Most Frequent:", word_counter.most_common(2))
+
+# A list of numbers and strings
+numbers = [1, 3, 7, 2, 5, 4]
+words = ['yay', 'bill', 'zen', 'del']
+# Sort them
+print(sorted(numbers))
+print(sorted(words))
+# Sort them in descending order
+print(sorted(numbers, reverse=True))
+print(sorted(words, reverse=True))
+
+# Create a list of tuples
+grades = [('John', 95), ('Aaron', 99), ('Zack', 97), ('Don', 92),
+          ('Jennifer', 100), ('Abby', 94), ('Zoe', 99), ('Dee', 93)]
+# Sort by the grades, descending
+sorted(grades, key=lambda x: x[1], reverse=True)
+# Sort by the name's initial letter, ascending
+sorted(grades, key=lambda x: x[0][0])
+
+# Requirement: sort by name initial ascending, and by grades, descending
+# Both won't work
+sorted(grades, key=lambda x: (x[0][0], x[1]), reverse=True)
+sorted(grades, key=lambda x: (x[0][0], x[1]), reverse=False)
+# This will do the trick
+sorted(grades, key=lambda x: (x[0][0], -x[1]))
+
+student = {'name': "John", 'age': 18}
+student['gender']
+
+letters = ["a", "a", "c", "d", "d", "c", "a", "b"]
+final_dict = {}
+for letter in letters:
+    if letter not in final_dict:
+        final_dict[letter] = []
+    final_dict[letter].append(letter)
+
+print("Final Dict:", final_dict)
+
+from collections import defaultdict
+
+final_defaultdict = defaultdict(list)
+for letter in letters:
+    final_defaultdict[letter].append(letter)
+
+print("Final Default Dict:", final_defaultdict)
+
