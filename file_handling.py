@@ -26,3 +26,9 @@ print("Txt files:", txt_files)
 from glob import glob
 files = list(glob('h*'))
 print("Files starting with h:", files)
+
+from glob import glob
+csv_files = glob('*.py')
+for csv_file in csv_files:
+
+    print(csv_file)
