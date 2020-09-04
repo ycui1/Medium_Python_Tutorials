@@ -75,20 +75,82 @@ def say_hello(whom):
 print(say_hello.__doc__)
 
 
+import time
+from functools import wraps
 
-calculate_sum.__closure__[0].cell_contents
-calculate_sum.__code__.co_freevars
+def logging_time(unit):
+    """Decorator that logs time"""
+    def logger(func):
+        @wraps(func)
+        def inner_logger(*args, **kwargs):
+            """Function that logs time"""
+            start = time.time()
+            func(*args, **kwargs)
+            scaling = 1000 if unit == "ms" else 1
+            print(f"Calling {func.__name__}: {(time.time() - start) * scaling:.5f} {unit}")
 
-# Decorator that repeats function call twice
+        return inner_logger
+
+    return logger
+
+
+@logging_time("ms")
+def calculate_sum_ms(n):
+    """Calculate sum of 0 to n-1"""
+    return sum(range(n))
+
+@logging_time("s")
+def calculate_sum_s(n):
+    """Calculate sum of 0 to n-1"""
+    return sum(range(n))
+
+
+calculate_sum_ms(100000)
+calculate_sum_s(100000)
+
+
 def repeat(func):
+    """Decorator that repeats function call twice"""
     def repeater(*args, **kwargs):
         func(*args, **kwargs)
         func(*args, **kwargs)
 
     return repeater
 
+
+@logging_time("ms")
 @repeat
 def say_hi(whom):
+    print(f"Hi, {whom}!")
+
+
+@repeat
+@logging_time("ms")
+def say_hello(whom):
     print(f"Hello, {whom}!")
 
 say_hi("John")
+say_hello("Aaron")
+
+
+class Repeat:
+    def __init__(self, n):
+        self.n = n
+
+    def __call__(self, func):
+        def repeater(*args, **kwargs):
+            for _ in range(self.n):
+                func(*args, **kwargs)
+
+        return repeater
+
+@Repeat(n=2)
+def morning_greet(person):
+    print(f"Good Morning, {person}!")
+
+@Repeat(n=3)
+def afternoon_greet(person):
+    print(f"Good Afternoon, {person}!")
+
+morning_greet("Jason")
+afternoon_greet("Kelly")
