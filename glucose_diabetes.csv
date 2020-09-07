@@ -1,0 +1,11 @@
+subject,fasting_glucose_level,diabetic_clinical,diabetic_predicted,prediction_correct
+1,82,N,N,correct
+2,93,N,N,correct
+3,102,N,N,correct
+4,108,N,N,correct
+5,123,N,Y,wrong
+6,112,Y,N,wrong
+7,137,Y,Y,correct
+8,144,Y,Y,correct
+9,151,Y,Y,correct
+10,162,Y,Y,correct
