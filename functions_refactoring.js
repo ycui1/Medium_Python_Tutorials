@@ -130,7 +130,3 @@ let user = new User("username", "email@email.com", "12345678");
 user.phoneNumber = "1234567890";
 user.address = "123 Main Street";
 createNewUserAccount(user);
-
-
-
-
