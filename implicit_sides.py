@@ -1,3 +1,4 @@
+# Instance Method Invocation
 class Person:
     def speak(self):
         print(f"Speak method is called by {self}")
@@ -5,38 +6,75 @@ class Person:
 
 person0 = Person()
 person0.speak()
-#
-#
-# def object_getattribute(obj, name):
-#     "Emulate PyObject_GenericGetAttr() in Objects/object.c"
-#     null = object()
-#     objtype = type(obj)
-#     cls_var = getattr(objtype, name, null)
-#     descr_get = getattr(type(cls_var), '__get__', null)
-#     print("descr_get", descr_get)
-#     print("cls_var", cls_var)
-#     print("objtype", objtype)
-#     if descr_get is not null:
-#         if (hasattr(type(cls_var), '__set__') or hasattr(type(cls_var), '__delete__')):
-#             print("(hasattr(type(cls_var), '__set__') or hasattr(type(cls_var), '__delete__'))")
-#             return descr_get(cls_var, obj, objtype)     # data descriptor
-#     if hasattr(obj, '__dict__') and name in vars(obj):
-#         print("hasattr(obj, '__dict__') and name in vars(obj)")
-#         return vars(obj)[name]                          # instance variable
-#     if descr_get is not null:
-#         print("descr_get is not null")
-#         return descr_get(cls_var, obj, objtype)         # non-data descriptor
-#     if cls_var is not null:
-#         print("cls_var is not null")
-#         return cls_var                                  # class variable
-#     raise AttributeError(name)
-#
-#
-# person = Person()
-#
-# object_getattribute(person, "speak")
-#
-#
-# id(person.speak)
-# id(Person.speak)
-# id(Person().speak)
+
+# Special Methods
+class Person1:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __len__(self):
+        print("__len__ is invoked")
+        return self.age
+
+    def __abs__(self):
+        return
+
+person1 = Person1("John Smith", 38)
+len(person1)
+abs(person1)
+
+
+# Create a decorator function
+def alert(func):
+    def wrapper(*args, **kwargs):
+        print(f"Alert: {func.__name__} is being called.")
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+# Use the decorator with a function
+@alert
+def greeting(person):
+    print(f"Hello, {person}!")
+
+
+greeting("John")
+
+
+def greeting1(person):
+    print(f"Hello, {person}!")
+
+greeting1 = alert(greeting1)
+greeting1("John")
+
+# Iterations
+# A simple iteration
+numbers = [1, 2]
+for a in numbers:
+    print(a)
+
+
+class PerfectSquare:
+    def __init__(self, limit):
+        self.limit = limit
+        self.n = 1
+
+    def __iter__(self):
+        print("Creating an iterator")
+        return self
+
+    def __next__(self):
+        print("Getting the next item")
+        if self.n < self.limit:
+            square = self.n * self.n
+            self.n += 1
+            return square
+        else:
+            print("Complete iteration")
+            raise StopIteration
+
+
+for number in PerfectSquare(4):
+    print(number)
