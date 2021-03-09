@@ -3,38 +3,42 @@ import time
 import streamlit as st
 import plotly.express as px
 
-# Create the title for the web app
-st.title("My First Streamlit App")
-
-
 @st.cache
-def load_dataset():
-    dataset = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv')
+def load_dataset(data_link):
+    dataset = pd.read_csv(data_link)
     return dataset
 
 
-titanic_data = load_dataset()
+titanic_link = 'https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv'
+titanic_data = load_dataset(titanic_link)
+
+
+# Create the title for the web app
+st.title("My First Streamlit App")
+sidebar = st.sidebar
+sidebar.title("This is the sidebar.")
+sidebar.write("You can add any elements to the sidebar.")
+
 
 st.header("Dataset Overview")
-showing_data = st.checkbox("Show All Data", True)
-if showing_data:
-    st.dataframe(titanic_data)
-else:
-    st.write("The dataset is hidden. Check the box to show the data.")
+st.dataframe(titanic_data)
 
 st.header("Data Description")
 
 selected_class = st.radio("Select Class", titanic_data['class'].unique())
-subset_class = titanic_data[titanic_data['class'] == selected_class]
-st.write(f"Number of Records With Class {selected_class}: {subset_class.shape[0]}")
-
-selected_decks = st.multiselect("Select Decks", titanic_data['deck'].unique())
-subset_decks = titanic_data[titanic_data['deck'].isin(selected_decks)]
-st.write(f"Number of Records With Decks {selected_decks}: {subset_decks.shape[0]}")
+st.write("Selected Class:", selected_class)
+st.write("Selected Class Type:", type(selected_class))
+st.markdown("___")
 
 selected_sex = st.selectbox("Select Sex", titanic_data['sex'].unique())
-subset_sex = titanic_data[titanic_data['sex'] == selected_sex]
-st.write(f"Number of Records With Sex {selected_sex}: {subset_sex.shape[0]}")
+st.write(f"Selected Option: {selected_sex!r}")
+
+st.markdown("___")
+
+selected_decks = st.multiselect("Select Decks", titanic_data['deck'].unique())
+st.write("Selected Decks:", selected_decks)
+
+st.markdown("___")
 
 age_columns = st.beta_columns(2)
 age_min = age_columns[0].number_input("Minimum Age", value=titanic_data['age'].min())
@@ -45,7 +49,6 @@ else:
     st.success("Congratulations! Correct Parameters!")
     subset_age = titanic_data[(titanic_data['age'] <= age_max) & (age_min <= titanic_data['age'])]
     st.write(f"Number of Records With Age Between {age_min} and {age_max}: {subset_age.shape[0]}")
-
 
 optionals = st.beta_expander("Optional Configurations", True)
 fare_min = optionals.slider(
@@ -73,7 +76,6 @@ with st.echo("below"):
     balloons = st.text_input("Please enter awesome to see some balloons")
     if balloons == "awesome":
         st.balloons()
-
 
 st.write("This is a large text area.")
 st.text_area("A very big area", height=300)
