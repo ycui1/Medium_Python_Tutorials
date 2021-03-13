@@ -3,6 +3,7 @@ import time
 import streamlit as st
 import plotly.express as px
 
+
 @st.cache
 def load_dataset(data_link):
     dataset = pd.read_csv(data_link)
@@ -64,13 +65,7 @@ fare_max = optionals.slider(
 subset_fare = titanic_data[(titanic_data['fare'] <= fare_max) & (fare_min <= titanic_data['fare'])]
 st.write(f"Number of Records With Fare Between {fare_min} and {fare_max}: {subset_fare.shape[0]}")
 
-st.markdown("This is a _markdown_ comment, which is *great* and _**awesome**_.")
-st.markdown("Here's the link to [Streamlit](https://www.streamlit.io/)")
-
-st.write("Survival By Class")
-st.dataframe(pd.crosstab(titanic_data['class'], titanic_data['survived'], normalize='index'))
-st.write("Here's the code to generate this table:")
-st.code("pd.crosstab(titanic_data['class'], titanic_data['survived'], normalize='index')")
+st.markdown("___")
 
 with st.echo("below"):
     balloons = st.text_input("Please enter awesome to see some balloons")
@@ -80,11 +75,29 @@ with st.echo("below"):
 st.write("This is a large text area.")
 st.text_area("A very big area", height=300)
 
-progress_bar = st.progress(0)
-progress_text = st.empty()
-for i in range(101):
-    time.sleep(0.1)
-    progress_bar.progress(i)
-    progress_text.text(f"Progress: {i}%")
+start_button = st.button("Start the Progress")
+if start_button:
+    progress_bar = st.progress(0)
+    progress_text = st.empty()
+    for i in range(101):
+        time.sleep(0.01)
+        progress_bar.progress(i)
+        progress_text.text(f"Progress: {i}%")
+else:
+    st.write("The progress will be starting by clicking the button.")
+st.markdown("___")
+
+with st.echo():
+    st.markdown("## Level 2 header")
+    st.markdown("This is a _markdown_ comment, which is *great* and _**awesome**_. Above the separator.")
+    st.markdown("___")
+    st.markdown("Here's the link to [Streamlit](https://www.streamlit.io/). Below the separator.")
+    st.markdown("```python\nnumbers = [1, 2, 3, 4, 5]\ntexts = ['a', 'b', 'c']")
+
+st.write("Survival By Class")
+st.dataframe(pd.crosstab(titanic_data['class'], titanic_data['survived'], normalize='index'))
+st.write("Here's the code to generate this table:")
+st.code("pd.crosstab(titanic_data['class'], titanic_data['survived'], normalize='index')")
 
 st.write(px.histogram(titanic_data['fare']))
+
