@@ -47,7 +47,7 @@ text_data = file.read()
 # 3. Close the file
 file.close()
 
-file0 = open("file0.txt", "w"
+file0 = open("file0.txt", "w")
 file0.write("some random data")
 print("Is the file0 closed?", file0.closed)
 
