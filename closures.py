@@ -1,3 +1,60 @@
+# 07/27/2021
+def multiplier_creator(n):
+    def multiplier(number):
+        return number * n
+
+    return multiplier
+
+
+double_multiplier = multiplier_creator(2)
+triple_multiplier = multiplier_creator(3)
+
+del multiplier_creator
+double_multiplier(5)
+triple_multiplier(5)
+
+double_multiplier.__code__.co_freevars
+double_multiplier.__closure__[0].cell_contents
+
+triple_multiplier.__code__.co_freevars
+triple_multiplier.__closure__[0].cell_contents
+
+
+def running_total_multiplier_creator(n):
+    running_total = 0
+    def multiplier(number):
+        nonlocal running_total
+        product = number * n
+        running_total += product
+        return running_total
+
+    return multiplier
+
+
+running_doubler = running_total_multiplier_creator(2)
+running_doubler(5)
+
+
+def simple_logger(func):
+    def decorated(*args, **kwargs):
+        print(f"You're about to call {func}")
+        result = func(*args, **kwargs)
+        print(f"You just called {func}")
+        return result
+
+    return decorated
+
+
+@simple_logger
+def hello_world():
+    print("Hello, World!")
+
+
+hello_world()
+hello_world.__code__.co_freevars
+hello_world.__closure__[0].cell_contents
+
+
 def say_hello(name):
     greeting = f"Hello, {name}!"
     return greeting
