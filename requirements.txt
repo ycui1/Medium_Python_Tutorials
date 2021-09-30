@@ -1,0 +1,2 @@
+gsheetsdb==0.1.13
+streamlit==0.89.0
