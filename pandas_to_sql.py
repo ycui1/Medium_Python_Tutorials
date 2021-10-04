@@ -50,4 +50,3 @@ df['full_year'] = df['model_year'] + 1900
 df.drop(columns=["mpg", "horsepower"])
 
 pd.concat([df, df])
-
