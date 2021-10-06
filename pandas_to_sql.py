@@ -4,9 +4,9 @@ mpg_df.columns
 df = mpg_df.drop(columns="cylinders displacement acceleration".split())
 df.head()
 
-# import sqlite3
-# con = sqlite3.connect("medium.sqlit")
-# df.to_sql()
+import sqlite3
+con = sqlite3.connect("medium.db")
+df.to_sql("mpgtbl", con)
 
 df[(df['origin'] == "usa") & (df['weight'] > 4900)]
 
