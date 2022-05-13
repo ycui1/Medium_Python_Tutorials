@@ -39,4 +39,3 @@ def show_text():
 
 pout.put_button("I'm Ready!", onclick=show_text)
 pout.toast("test")
-

@@ -28,7 +28,7 @@ from io import BytesIO
 
 BytesIO(b'Medium')
 
-with open("test.text", 'w') as file:
+with open("test_3_11.py", 'w') as file:
     print(repr(file))
 
 class Student:
